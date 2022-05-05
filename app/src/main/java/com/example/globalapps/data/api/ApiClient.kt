@@ -17,6 +17,6 @@ object ApiClient {
         return retrofit!!
     }
 
-    fun apiService() = getClient(baseUrl).create(ApiService::class.java)
+    fun apiService(): ApiService = getClient(baseUrl).create(ApiService::class.java)
 
 }
