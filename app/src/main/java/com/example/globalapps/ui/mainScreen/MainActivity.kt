@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel>()
 
@@ -16,12 +17,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initObserver()
-
-    }
-    private fun initObserver(){
-        viewModel.activity.observe(this){
-            updateText(binding.tvRandomActivity, it)
+        binding.tvRandomActivity.setOnClickListener {
+            initObserver()
+            initData()
         }
+    }
+
+    private fun initObserver() {
+        viewModel.activity.observe(this@MainActivity) {
+                updateText(binding.tvRandomActivity, it)
+            }
+    }
+
+    private fun initData() {
+        viewModel.getActivity()
     }
 }

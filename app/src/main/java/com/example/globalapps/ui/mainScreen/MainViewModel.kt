@@ -18,11 +18,8 @@ class MainViewModel @Inject constructor(
     private var _activity: MutableLiveData<String> = MutableLiveData("")
     var activity: LiveData<String> = _activity
 
-    init {
-        getActivity()
-    }
 
-    private fun getActivity() {
+    fun getActivity() {
         viewModelScope.launch(Dispatchers.IO) {
             _activity.postValue(
                 useCase.getActivity().body()?.activity ?: throw IllegalStateException("not info")
